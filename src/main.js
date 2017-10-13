@@ -7,9 +7,6 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'normalize.css'
 import './public/sass/common.scss'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-Vue.use(ElementUI)
 Vue.use(MintUI)
 Vue.config.productionTip = false
 let store = require('./vuex/store.js')

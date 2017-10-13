@@ -1,79 +1,27 @@
 <template>
   <div class="info">
-    <el-form ref="form" :model="form" label-width="90px" label-position="left" >
-      <el-form-item label="姓     名：">
-          <el-input v-model="form.name" placeholder="姓名"></el-input>
-        </el-form-item>
-      <el-form-item label="身份证号：">
-          <el-input v-model="form.id" placeholder="身份证号" :maxlength="18"></el-input>
-        </el-form-item>
-      <el-form-item label="申请金额：">
-          <el-select v-model="form.fee" placeholder="申请金额">
-            <el-option v-for="item in fee" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      <el-form-item label="申请期限：">
-          <el-select v-model="form.time_limit" placeholder="申请期限">
-            <el-option v-for="item in time_limit" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      <el-form-item label="客户类型：">
-          <el-select v-model="form.client_type" placeholder="客户类型">
-            <el-option v-for="item in client_type" :key="item.value" :label="item.label" :value="item.value"  @click.native="change">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      <el-form-item label="企业名称：" v-show="show1">
-          <el-input v-model="form.company" placeholder="企业名称"  v-show="show1"></el-input>
-        </el-form-item>
-      <el-form-item label="所属行业：" v-show="show2">
-          <el-input v-model="form.industry" placeholder="所属行业" v-show="show2"></el-input>
-        </el-form-item>
-      <el-form-item label="资金用途：">
-          <el-select v-model="form.purpose" placeholder="资金用途">
-            <el-option v-for="item in purpose" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      <el-form-item label="省份地址：">
-          <el-select v-model="form.address_province" placeholder="省地址" v-on:change="getProv($event)">
-            <el-option v-for="item in province" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-      </el-form-item>
-      <el-form-item label="市级地址：" v-if="form.address_province!=''">
-          <el-select v-model="form.address_city" placeholder="市地址" v-on:change="getCity($event)">
-            <el-option v-for="item in city" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-      </el-form-item>
-      <el-form-item label="区县地址：" v-if="form.address_city!=''">
-          <el-select v-model="form.address_area" placeholder="区县地址">
-            <el-option v-for="item in area" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-      </el-form-item>
-      <el-form-item label="街道地址：" v-if="form.address_area!=''">
-         <el-input v-model="form.address_road" placeholder="街道地址" ></el-input>
-        </el-form-item>
-      <el-form-item label="联系电话：">
-          <el-input v-model="form.mobile" placeholder="联系电话" :maxlength="11"></el-input>
-        </el-form-item>
-      </el-form>
-      <el-dialog title="图片验证码" :visible.sync="dialog" size="large">
+    <mt-field class="item" label="姓  名："  placeholder="姓名" v-model="name"></mt-field>
+    <mt-field class="item" label="身份证号：" placeholder="身份证号" v-model="id"></mt-field>
+    <mt-field class="item" label="申请金额：" placeholder="申请金额" v-model="fee"></mt-field>
+    <mt-field class="item" label="申请期限：" placeholder="申请期限" v-model="time_limit"></mt-field>
+    <mt-field class="item" label="客户类型：" placeholder="客户类型" v-model="client_type"></mt-field>
+    <mt-field class="item" label="资金用途：" placeholder="资金用途" v-model="purpose"></mt-field>
+    <mt-field class="item" label="省份地址：" placeholder="省份地址" v-model="address"></mt-field>
+    <mt-field class="item" label="联系电话：" placeholder="联系电话" v-model="mobile"></mt-field>
+      <div class="code">
+        <mt-field label="验 证 码：" placeholder="请输入6位验证码" type="number" v-model="sms_code"></mt-field>
+        <mt-button plain type="primary" @click.native="sendMsgCode" :disabled="disabled">{{this.codemsg}}</mt-button>
+      </div>
+    <!-- <mt-button plain type="primary" @click.native="dialogmethod">确定</mt-button>  -->
+      
+      <!-- <el-dialog title="图片验证码" :visible.sync="dialog" size="large">
       <div class="pic">
          <img :src="'data:image/jpg;base64,'+this.picture.imageBase64" alt="验证码图片" @click.native="changePicture">
           <span>点击图片更换</span>
       </div>
-          <mt-field label="验证码：" placeholder="请输入图片验证码" v-model="picture_code" :attr="{maxlength:4}"></mt-field>
+          <mt-field label="验 证码：" placeholder="请输入图片验证码" v-model="picture_code" :attr="{maxlength:4}"></mt-field>
           <mt-button plain type="primary" @click.native="dialogmethod">确定</mt-button>
-      </el-dialog>
-      <div class="code">
-        <mt-field label="验证码：" placeholder="请输入6位验证码" type="number" v-model="sms_code"></mt-field>
-        <mt-button plain type="primary" @click.native="sendMsgCode" :disabled="disabled">{{this.codemsg}}</mt-button>
-      </div>
+      </el-dialog> -->
       <mt-button plain type="primary" @click.native="handleClick">提交</mt-button>
     </div>
 </template>
@@ -153,7 +101,6 @@ export default {
               value: '企业主'
             }
           ],
-          form: {
             name: '',
             fee: '',
             id: '',
@@ -163,11 +110,11 @@ export default {
             client_type: '',
             company: '',
             industry: '',
+            address: '',
             address_road: '',
             address_province: '',
             address_city: '',
-            address_area: ''
-          },
+            address_area: '',
           province: [
             {label:"浙江省",value:"浙江省"},
             {label:"上海市",value:"上海市"},
