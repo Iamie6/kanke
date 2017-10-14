@@ -8,24 +8,28 @@
     <mt-field class="item" label="业主姓名：" placeholder="业主姓名" v-model="perName"></mt-field>
     <mt-field class="item" label="手机号码：" placeholder="手机号码" v-model="phone" type="tel"></mt-field>
     <mt-popup v-model="visible" position="bottom" class="picker">
-      <span class="title">请选择省市区</span>
+      <div style="height:40px;">
+        <span class="mint-datetime-action mint-datetime-cancel" @click="visible = false">取消</span>
+        <span class="mint-datetime-action mint-datetime-confirm" @click="addressOK">确定</span>
+      </div>
       <mt-picker
         :slots="slots"
         class="picker-up"
         ref="picker"
         @change="pickerChange">
       </mt-picker>
-      <mt-button plain type="primary" @click.native="addressOK">确定</mt-button>
     </mt-popup>
     <mt-popup v-model="visible2" position="bottom" class="picker">
-      <span class="title">请选择省市区</span>
+      <div style="height:40px;">
+        <span class="mint-datetime-action mint-datetime-cancel" @click="visible2 = false">取消</span>
+        <span class="mint-datetime-action mint-datetime-confirm" @click="addressOK2">确定</span>
+      </div>
       <mt-picker
         :slots="slots2"
         class="picker-up"
         ref="picker2"
         @change="pickerChange2">
       </mt-picker>
-      <mt-button plain type="primary" @click.native="addressOK2">确定</mt-button>
     </mt-popup>
     <mt-button plain type="primary" @click.native="handleClick">生成商户二维码</mt-button>
   </div>
@@ -5786,7 +5790,7 @@ export default {
       if(values[1] !== this.tpmAddress[1]){
         allArea.forEach((item, index)=>{
           if(item.value == values[1]){
-            this.areaIndex = index
+            this.slots[4].values = allArea[index].children
           }
         })
       }
@@ -5850,7 +5854,8 @@ export default {
 @import './../../public/sass/common.scss';
 .mer-qrcode {
   .item{
-    float:left;
+    
+    width: 100%;
   }
   .picker{
     width:100%;
