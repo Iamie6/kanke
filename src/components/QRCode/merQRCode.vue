@@ -1,7 +1,6 @@
 <template>
   <div class="mer-qrcode">
     <mt-field class="item" label="商户名称：" placeholder="商户名称" v-model="name"></mt-field>
-    
     <mt-field class="item" label="联系地址：" placeholder="省地址" v-model="address1" @click.native="showPicker" readonly>
     </mt-field>
     <mt-field class="item" label="经营类目：" placeholder="经营类目" v-model="item" @click.native="showPicker2" readonly></mt-field>
@@ -5795,6 +5794,15 @@ export default {
         })
       }
       
+      if(!values[0]){
+        values[0] = province[2]
+      }
+      if(!values[1]){
+        values[1] = allCity[2].children[0]
+      }
+      if(!values[2]){
+       //values[2] = allArea[8].children[2]
+      }
       this.tpmAddress = [values[0],values[1],values[2]]
     },
     showPicker2(){
@@ -5850,31 +5858,35 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
-@import './../../public/sass/common.scss';
+<style lang="scss" >
 .mer-qrcode {
-  .item{
-    
-    width: 100%;
+  .mint-datetime-cancel{
+    width:20%;
+    text-indent: 20px;
+    text-align:left;
+    color: #999;
   }
+  .mint-datetime-confirm{
+    width:20%;
+    text-align: right;
+    padding-right:20px;
+    color:#ff651b;
+  }
+
+  .item{
+    padding-left: 20px;
+    width: 90%;
+  }
+  
   .picker{
     width:100%;
   }
-  .title{
-    float: left;
-    padding:10px 0 10px 10px;
-    color:#666;
-    font-size: 14px;
-  }
+
   .picker-up{
 
   }
-
   .code {
     display: flex;
-    .el-input {
-      width: 50%;
-    }
     .mint-button {
       left:-5%;
       width: 29%;
@@ -5894,28 +5906,6 @@ export default {
       margin-bottom: pxToRem(8px);
     }
   }
-
-
-  .el-select-dropdown__item.selected{
-    background-color: #ff651b;
-  }
-  .el-select-dropdown__item.selected.hover{
-    background-color: #ff651b;
-  }
-  .el-input__inner:focus{
-  border-color: #ff651b;
-  }
-  .el-select .el-input__inner:focus{
-    border-color: #ff651b;
-  }
-  .el-select{
-    .el-input{
-      width:pxToRem(230px);
-    }
-  }
-   .el-input{
-      width:pxToRem(230px);
-    }
 }
 
 </style>

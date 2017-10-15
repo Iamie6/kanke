@@ -1,6 +1,6 @@
 <template>
   <div class="info">
-    <mt-field class="item" label="姓  名："  placeholder="姓名" v-model="name"></mt-field>
+    <mt-field class="item" label="姓 名："  placeholder="姓名" v-model="name"></mt-field>
     <mt-field class="item" label="身份证号：" placeholder="身份证号" v-model="id"></mt-field>
     <mt-field class="item" label="申请金额：" placeholder="申请金额" v-model="fee" readonly @click.native="visible1 = true"></mt-field>
     <mt-field class="item" label="申请期限：" placeholder="申请期限" v-model="time_limit" readonly @click.native="visible2 = true"></mt-field>
@@ -9,8 +9,9 @@
     <mt-field class="item" label="省份地址：" placeholder="省份地址" v-model="address1" readonly @click.native="visible5 = true"></mt-field>
     <mt-field class="item" label="联系电话：" placeholder="联系电话" v-model="mobile" type="tel"></mt-field>
       <div class="code">
-        <mt-field label="验 证 码：" placeholder="请输入6位验证码" type="number" v-model="sms_code"></mt-field>
+        <mt-field label="验 证 码：" placeholder="请输入6位验证码" type="number" v-model="sms_code">
         <mt-button plain type="primary" @click.native="sendMsgCode" >{{this.codemsg}}</mt-button>
+        </mt-field>
       </div>
     <!-- <mt-button plain type="primary" @click.native="dialogmethod">确定</mt-button>  -->
       
@@ -6131,10 +6132,28 @@ export default {
   
 }
 </style>
-<style  lang="scss">
+<style  lang="scss" scoped>
 @import './../../public/sass/common.scss';
+
+.mint-datetime-cancel{
+    width:20%;
+    text-indent: 20px;
+    text-align:left;
+    color: #999;
+  }
+  .mint-datetime-confirm{
+    width:20%;
+    text-align: right;
+    padding-right:20px;
+    color:#ff651b;
+  }
+
 .info .popup{
   width: 100%;
+}
+.item{
+  padding-left:20px;
+  width:90%;
 }
 .info .pic{
   padding-top:20px;
@@ -6151,9 +6170,6 @@ export default {
 }
 .info {
  
-.el-select .el-input__inner:focus{
-    border-color: #ff651b;
-}
 .mint-cell-wrapper{
   font-size: pxToRem(15px);
   color:rgb(51,51,51);

@@ -3,13 +3,14 @@
   <div class="home">
     <div class="photo">
       <span>{{this.msg}}</span>
-      <img :src="'data:image/jpg;base64,'+this.initialInfo.imageBase64">
-      <!--<mt-button plain type="primary" @click.native="handleClick">保存至相册</mt-button>-->
+      <img ref="downimg" :src="'data:image/jpg;base64,'+this.initialInfo.imageBase64">
+      <mt-button class="save-btn" plain type="primary" @click.native="download">保存至相册</mt-button>
     </div>
     <div class="more">
       <mt-button plain type="primary" @click.native="merClick">生成商户二维码</mt-button>
       <mt-button plain type="primary" @click.native="campaignClick" :disabled="true">活动二维码(建设中)</mt-button>
     </div>
+    <img src="" style="display: none;" ref="canvasImg">
   </div>
 </template>
 <script>
@@ -26,6 +27,16 @@
         this.$emit('toNexT',{
           type: 'goMer'
         })
+      },
+      download(){
+          const downimg = this.$refs.downimg
+          var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+          save_link.href = downimg.src;
+          save_link.download = "huoke.png";
+          var event = document.createEvent('MouseEvents');
+          event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false,0, null);
+
+          save_link.dispatchEvent(event);   
       },
       campaignClick() {
         this.$emit('toNexT',{
@@ -60,7 +71,7 @@
             code: this.routeInfo.code
           }
         })
-      }
+      } 
     }
   }
 </script>
@@ -94,6 +105,9 @@
   }
   .mint-button{
     font-size: pxToRem(18px);
+  }
+  .save-btn{
+    margin-top:pxToRem(50px);
   }
  }
 
