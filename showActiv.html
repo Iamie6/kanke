@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth/15 + 'px';
+	</script>
+	<script src="axios.js"></script>
+	<script type="text/javascript">
+		var isMobile = {
+			Android: function() {
+				return /Android/i.test(window.navigator.userAgent)
+			},
+			BlackBerry: function() {
+				return /BlackBerry/i.test(window.navigator.userAgent)
+			},
+			iOS: function() {
+				return /iPhone|iPad|iPod|iOS/i.test(window.navigator.userAgent)
+			},
+			Windows: function() {
+				return /IEMobile/i.test(window.navigator.userAgent)
+			},
+			any: function() {
+				return isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows()
+			},
+			wechat: function() {
+				return /micromessenger/i.test(window.navigator.userAgent.toLowerCase())
+			},
+			app: function() {
+				return /yhstore/i.test(window.navigator.userAgent.toLowerCase())
+			}
+		}
+		var rq_token = "1211iuoisdfoius8dxq930u09zxczqw1a";
+		var code = '';
+		var state = '';
+		var codeArr = location.search.substring(1).split('&')
+		for (var i = 0; i < codeArr.length; i++) {
+			var arr = codeArr[i].split('=');
+			if(arr[0] == 'code'){
+				code = arr[1]
+			} 
+			if(arr[0] == 'state'){
+				state = arr[1]
+			}
+		}
+		var openid = ''
+		var name = '';
+		var headerPic = '';
+		var hasRequest = false;
+		var baseURL = 'http://bingxing.igetter.cn/sdsl/f/check'
+		var baseURL2 = 'http://bingxing.igetter.cn/sdsl/f/sdsl'
+		//http://wx.qlogo.cn/mmhead/0lHBN5VmMlYYbubYYiaR4AG3YIEYhD0ib06ibH5w2GQicKg/0
+		
+		if(code){
+			axios.get( baseURL + '/getcode',{params:{code:code}}).then(function(res){
+				console.log(res.data)
+				var data = res.data;
+				headerPic = data.headimgurl;
+				name = data.nickname ;
+				openid = data.openid;
+				hasRequest = true
+			}).catch(function(err){
+				//alert(err)
+				hasRequest = true
+			})
+		}
+	</script>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta content="telephone=no,email=no" name="format-detection">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="x5-page-mode" content="app">
+	<link rel="stylesheet" type="text/css" href="active.css">
+	<link rel="stylesheet" type="text/css" href="active2.css">
+	<title>朋友圈</title>
+</head>
+<body>
+	<div class="energy-box">
+		<div class="energy">
+			<img class="cover" src="img/images/p16_cover_02.jpg" alt="">
+			<p class="name">骑着亚瑟的猪</p>
+			<img class="title" src="img/images/p16_title.png" alt="">
+			<div class="power-box">
+				<img class="power" src="img/images/power.png" alt="">
+			</div>
+			<div class="piont clearfix">
+				<div class="active"></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="charge-btn" style="display:none;">点击充能</div>
+			<div class="list-box mg2">
+				<div class="list">
+					<div class="detail">
+						<!-- <p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p>
+						<p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p>
+						<p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p> -->
+					</div>
+				</div>
+			</div>
+			<div class="btn-box">
+				<span>查看排行榜</span>
+				<span>了解前因后果</span>
+			</div>
+		</div>
+	</div>
+	<div class="ranking-box" style="display: none;">
+		<div class="ranking">
+			<div class="title">
+				充能排行榜
+			</div>
+			<!-- <div class="number1">
+				<div class="rank">NO. 1</div>
+				<div class="headPic"></div>
+				<div class="content">
+					<p>骑猪的亚瑟</p>
+					<p>能量10</p>
+				</div>
+				<div class="crown"></div>
+			</div>
+			<div class="number">
+				<p>NO. 2</p>
+				<div class="headeP"></div>
+				<div class="content">
+					<p>小小鱼</p>
+					<p>充能800</p>
+				</div>
+			</div> -->
+			
+			<!-- <div class="myself">
+				<p>NO.10</p>
+				<div class="headeP"></div>
+				<div class="content">
+					<p>二虎</p>
+					<p>充能800</p>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript">
+	/* 用途: 接收地直栏参数 取id=1 根据ID的值 */
+	var urlinfo=window.location.href; //获取当前页面的url
+	var len=urlinfo.length;//获取url的长度
+	var offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	var newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	var newsids=newsidinfo.split("&");//对获得的参数字符串按照“=”进行分割
+	var newsid=newsids[0].split("=")[1];//得到参数值
+	var en_id = newsid;
+	var len = 1;
+	var timer6 = setInterval(function(){
+		if(hasRequest){
+			clearInterval(timer6);
+			
+			getDetail()
+		}
+	},50)
+	
+	function getDetail(){
+		axios.get(baseURL2 + '/showenergydetail',{
+			params:{
+				rq_token: rq_token,
+				en_id: en_id,
+				vx_code: openid
+			}
+		}).then(function(res){
+			var data = res.data;
+			var str = '';
+			
+			document.querySelector(".energy-box .name").innerHTML = data.energeticMainVO.vxName;
+			if(data.energeticMainVO.vxCode != openid){
+				if(data.isshow == 1){
+					document.querySelector('.charge-btn').style.display = 'block';
+					document.querySelector('.list-box').classList.remove('mg2');
+				}
+			}else{
+				document.querySelector('.energy .title').src = './img/images/p16_title2.png'
+			}
+			
+			if(data.persionVOList && data.persionVOList.length){
+				len = data.persionVOList.length
+				var point = document.querySelectorAll('.energy-box .energy .piont div');
+				if(data.persionVOList.length > 11){
+					document.querySelectorAll('.energy-box .energy .power').style.width = '100%';
+					for (var i = 0; i < point.length; i++) {
+						point[i].classList.add('active');
+					}
+				}else{
+					document.querySelector('.energy-box .energy .power').style.width = data.energeticMainVO.energeticNum*100/12 +'%';
+					for (var i = 0; i < data.energeticMainVO.energeticNum; i++) {
+						point[i].classList.add('active');
+					}
+				}
+				for (var i = 0; i < data.persionVOList.length; i++) {
+					str += '<p><span class="name">' + data.persionVOList[i].vxName + '</span><span class="summary">为擎天柱注入了能量</span><span>' + data.persionVOList[i].energeticTime +'</span></p>'
+				}
+			}
+			document.querySelector('.energy-box .energy .detail').innerHTML = str;
+		}).catch(function(err){
+			console.log(err)
+		})
+	}
+	document.querySelectorAll('.energy-box .btn-box span')[0].addEventListener('click', function(){
+		axios.get(baseURL2 + '/showenergyorder',{params:{
+			rq_token:rq_token,
+			vx_code: openid
+		}}).then(function(res){
+			var data = res.data
+			var listVO = data.listVO
+			var energeticMainVO = data.energeticMainVO
+			document.querySelector('.energy-box').style.display = 'none';
+			document.querySelector('.ranking-box').style.display = 'block';
+
+			var str = '<div class="title">充能排行榜</div>';
+
+
+			if(listVO && listVO.length){
+				str += '<div class="number1"><div class="rank">NO. 1</div><div class="headPic" style="background-image:url('+ listVO[0].vxIcon+')"></div><div class="content"><p>'+listVO[0].vxName+'</p><p>能量'+listVO[0].energeticNum+'</p></div><div class="crown"></div></div>';
+				
+
+				if(listVO.length>1){
+					for (var i = 1; i < listVO.length; i++) {
+						str +='<div class="number"><p>NO. '+ (i+1) +'</p><div class="headeP" style="background-image:url('+ listVO[i].vxIcon+')"></div><div class="content"><p>'+listVO[i].vxName+'</p><p>充能'+listVO[i].energeticNum+'</p></div></div>';
+					}
+				}
+			}
+			if(energeticMainVO){
+				str += '<div class="myself"><p>NO.'+energeticMainVO.ordNum+'</p><div class="headeP" style="background-image:url('+ energeticMainVO.vxIcon+')"></div><div class="content"><p>'+energeticMainVO.vxName +'</p><p>充能'+energeticMainVO.energeticNum+'</p></div></div>';
+				
+			}
+			document.querySelector('.ranking-box .ranking').innerHTML = str;
+		}).catch(function(err){
+			alert('获取列表失败')
+		})
+
+	},false)
+
+	document.querySelectorAll('.energy-box .btn-box span')[1].addEventListener('click', function(){
+		window.location.href = 'http://bingxing.igetter.cn/sdsl/html5/showTimeIndex.html';
+	},false)
+
+	document.querySelector('.charge-btn').addEventListener('click',function(){
+		
+		axios.get( baseURL2 + '/pushby',{
+			params:{
+				rq_token: rq_token,
+				vx_code : openid,
+				vx_icon	:headerPic,
+				vx_name	: name,
+				en_id: en_id
+			}
+		}).then(function(res){
+			var data = res.data;
+			document.querySelector('.charge-btn').style.display = 'none';
+			document.querySelector('.list-box').classList.add('mg2');
+			getDetail()
+		}).catch(function(err){
+			alert('充能失败')
+		})
+	},false)
+	
+	var timestamp = '';
+	var nonceStr = '';
+	var signature = '';
+	axios.get(baseURL + '/getsharecode',{
+		params:{
+			url: window.location.href
+		}
+	}).then(function(res){
+		
+		timestamp = res.data.timestamp;
+		nonceStr = res.data.noncestr;
+		signature = res.data.signature;
+		//token
+		wx.config({
+		    debug: false,
+		    appId: 'wxdca041b14b8ed8ab', 
+		    timestamp: timestamp, 
+		    nonceStr: nonceStr,
+		    signature: signature,
+		    jsApiList: [
+		    	"onMenuShareTimeline",
+				"onMenuShareAppMessage",
+				"onMenuShareQQ",
+				"onMenuShareWeibo"
+			] 
+		})
+	})
+	
+	var configJson1 = {
+	    title: '我是擎天柱，呼叫所有汽车人！', // 分享标题
+	    link: shareURL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	    imgUrl: 'http://bingxing.igetter.cn/sdsl/html5/img/images/HeroicAutobots.png', // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	}
+	var configJson2 = {
+	    title: '我是擎天柱，呼叫所有汽车人！', // 分享标题
+	    link: shareURL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	    desc: "集合地球十二骑士来搞事啦！",
+	    imgUrl: 'http://bingxing.igetter.cn/sdsl/html5/img/images/HeroicAutobots.png', // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	}
+	wx.ready(function(){
+		wx.onMenuShareTimeline(configJson1);
+		wx.onMenuShareAppMessage(configJson2);
+		wx.onMenuShareWeibo(configJson);
+		wx.onMenuShareQQ(configJson);
+	})
+
+	wx.error(function(res){
+
+	})
+	</script>
+</body>
+</html>
+

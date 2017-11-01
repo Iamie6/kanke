@@ -1,0 +1,258 @@
+.energy-box{
+			width:100%;
+			height: 100%;
+			overflow:auto; 
+			background: #010101;
+			text-align: center;
+		}
+		.energy .cover{
+			width:100%;
+		}
+		.energy .name{
+			width:100%;
+			text-align: center;
+			color:#fff;
+			font-size: .48rem;
+		}
+		.energy .title{
+			width:12.8rem;
+			margin:0 auto;
+		}
+		.energy .power-box{
+			width:12rem;
+			height:22px;
+			margin: 0.5rem auto;
+			border:2px solid #00c6ff;
+			border-radius: 11px;
+			text-align: left;
+		}
+		.power-box .power{
+			width: 10%;
+			margin-top: 1px;
+			margin-left: 1px;
+			height: 16px;
+			border-radius: 8px;
+		}
+		.piont{
+			width: 12rem;
+			margin:0.2rem auto;
+		}
+		.piont>div{
+			width:0.6rem;
+			height:0.6rem;
+			float:left;
+			margin-left:0.35rem;
+			background: url(./img/images/piont_off.png);
+			background-size: cover;
+		}
+		.piont>div.active{
+			background-image: url(./img/images/piont_on.png);
+		}
+		.charge-btn{
+			width:6.4rem;
+			height:1.56rem;
+			margin: 1.28rem auto;
+			background: url(./img/images/change_btn.png);
+			background-size: contain;
+			text-align: center;
+			line-height: 1.56rem;
+			font-size: 0.56rem;
+			color:#ffe258;
+		}
+		.list-box{
+			width:12.08rem;
+			height:4.9rem;
+			margin:0 auto;
+			overflow: hidden;
+			background: url(./img/images/p16_list_05.jpg);
+			background-size: contain;
+		}
+		.list-box .list{
+			position: relative;
+			overflow:auto;
+			margin-top:1.56rem;
+			width:100%;
+			height: 3.34rem;
+		}
+		.list-box .list .detail{
+			color:#999;
+			font-size: 0.4rem;
+		}
+		.detail .name{
+			color:#999;
+			font-size: 0.4rem;
+		}
+		.detail p{
+			margin:0.5rem 0;
+		}
+		.detail .summary{
+			margin:0 0.6rem;
+		}
+		.btn-box{
+			width:100%;
+			color:#ffe258;
+			font-size: 0.48rem;
+			text-align: left;
+			margin-bottom: 2rem;
+		}
+		.btn-box span{
+			display: inline-block;
+			border-bottom:1px solid #ffe258;
+			padding:0.1rem 0;
+			margin-left:20%;
+			margin-top: 0.52rem;
+		}
+		
+		.ranking-box{
+			overflow:auto;
+			padding-bottom: 4rem;
+			width:100%;
+			height:100%;
+			background: #000;
+		}
+		.ranking{
+			width:100%;
+			color:#ffe258;
+		}
+		.ranking .title{
+			width:100%;
+			border-bottom: 2px solid #ffe258;
+			padding:0.4rem;
+			font-size: 0.56rem;
+			text-align: center;
+		}
+		.ranking .number1{
+			width:100%;
+			height: 4.7rem;
+			background: url(./img/images/line_03.png) no-repeat;
+			background-position: left bottom;
+			background-size:contain;
+			overflow:hidden;
+		}
+		.ranking .number1 .rank{
+			float: left;
+			width:2.52rem;
+			height: 0.8rem;
+			margin-top:1.95rem;
+			border-radius: 0 0.4rem 0.4rem 0;
+			background: #e7c420;
+			color:#fff;
+			font-size: 0.6rem;
+			line-height: 0.8rem;
+			text-align: center;
+		}
+		.ranking .number1 .headPic{
+			float: left;
+			margin-top: 1.2rem;
+			margin-left:1.2rem;
+			height: 2.44rem;
+			width: 2.44rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .number1 .content{
+			float: left;
+			margin-top: 1.3rem;
+			margin-left:0.7rem;
+			color:#fff;
+			font-size: 0.48rem;
+		}
+		.content p{
+			margin:0;
+			height:1.1rem;
+			line-height: 1.1rem;
+		}
+		.content p:nth-child(2){
+			color:#e7c420;
+		}
+		.ranking .number1 .crown{
+			float: left;
+			width:1.74rem;
+			height: 0.96rem;
+			margin-top: 2rem;
+			margin-left:2.5rem;
+			background: url(./img/images/crown_03.png) no-repeat;
+			background-size: contain;
+		}
+		.ranking .number{
+			height: 2.4rem;
+			width:100%;
+			overflow: hidden;
+			background: url(./img/images/line_03.png) no-repeat;
+			background-position: left bottom;
+			background-size:contain;
+		}
+		.ranking .number>p{
+			float:left;
+			width:2.1rem;
+			font-size: 0.68rem;
+			margin-top:0.92rem;
+			margin-left: 0.68rem;
+		}
+		.ranking .number .headeP{
+			float: left;
+			margin-top: 0.2rem;
+			margin-left:1rem;
+			height: 2rem;
+			width: 2rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .number .content{
+			float: left;
+			margin-top: 0.4rem;
+			margin-left:0.64rem;
+			color:#999;
+			font-size: 0.48rem;
+		}
+		.number .content p{
+			margin:0;
+			height:0.8rem;
+			line-height: 0.8rem;
+		}
+		.ranking .myself{
+			position: absolute;
+			bottom:0;
+			left:0;
+			width:100%;
+			height:2.4rem;
+			background: #f5f4f6;
+			color:#555;
+		}
+		.ranking .myself>p{
+			float:left;
+			width:2.1rem;
+			font-size: 0.68rem;
+			margin-top:0.92rem;
+			margin-left: 0.68rem;
+		} 
+		.ranking .myself .headeP{
+			float: left;
+			margin-top: 0.2rem;
+			margin-left:1rem;
+			height: 2rem;
+			width: 2rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .myself .content{
+			float: left;
+			margin-top: 0.4rem;
+			margin-left:0.64rem;
+			color:#999;
+			font-size: 0.64rem;
+		}
+		.myself .content p{
+			float: left;
+			margin:0;
+			margin-left:1rem;
+			height:2rem;
+			line-height: 1.8rem;
+		}
+		
+		.mg2{
+			margin-top:2rem;
+		}

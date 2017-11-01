@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth/15 + 'px';
+	</script>
+	<script src="axios.js"></script>
+	<script type="text/javascript">
+		var isMobile = {
+			Android: function() {
+				return /Android/i.test(window.navigator.userAgent)
+			},
+			BlackBerry: function() {
+				return /BlackBerry/i.test(window.navigator.userAgent)
+			},
+			iOS: function() {
+				return /iPhone|iPad|iPod|iOS/i.test(window.navigator.userAgent)
+			},
+			Windows: function() {
+				return /IEMobile/i.test(window.navigator.userAgent)
+			},
+			any: function() {
+				return isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows()
+			},
+			wechat: function() {
+				return /micromessenger/i.test(window.navigator.userAgent.toLowerCase())
+			},
+			app: function() {
+				return /yhstore/i.test(window.navigator.userAgent.toLowerCase())
+			}
+		}
+		var rq_token = "1211iuoisdfoius8dxq930u09zxczqw1a";
+		var code = '';
+		var state = '';
+		var codeArr = location.search.substring(1).split('&')
+		for (var i = 0; i < codeArr.length; i++) {
+			var arr = codeArr[i].split('=');
+			if(arr[0] == 'code'){
+				code = arr[1]
+			} 
+			if(arr[0] == 'state'){
+				state = arr[1]
+			}
+		}
+		var openid = ''
+		var name = '';
+		var headerPic = '';
+		var hasRequest = false;
+		var en_id = '';
+		var shareURL = 'http://bingxing.igetter.cn/sdsl/html5/showTimeIndex.html'
+		var baseURL = 'http://bingxing.igetter.cn/sdsl/f/check'
+		var baseURL2 = 'http://bingxing.igetter.cn/sdsl/f/sdsl'
+		//http://wx.qlogo.cn/mmhead/0lHBN5VmMlYYbubYYiaR4AG3YIEYhD0ib06ibH5w2GQicKg/0
+		
+		if(code){
+			axios.get( baseURL + '/getcode',{params:{code:code}}).then(function(res){
+				console.log(res.data)
+				var data = res.data;
+				headerPic = data.headimgurl;
+				name = data.nickname ;
+				openid = data.openid;
+				hasRequest = true
+			}).catch(function(err){
+				//alert(err)
+				hasRequest = true
+			})
+		}
+	</script>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta content="telephone=no,email=no" name="format-detection">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="x5-page-mode" content="app">
+	<link rel="stylesheet" type="text/css" href="./active.css">
+	<style type="text/css">
+		.loadPage{
+			background: #000;
+			width:100%;
+			height:100%;
+			text-align: center;
+		}
+		.loadPage>img{
+			margin:5rem auto 0rem; 
+			width:14.04rem;
+		}
+
+		.energy-box{
+			width: 100%;
+			height: 100%;
+			overflow: auto; 
+			background: #010101;
+			text-align: center;
+		}
+		.energy .cover{
+			width:100%;
+		}
+		.energy .name{
+			width:100%;
+			text-align: center;
+			color:#fff;
+			font-size: .48rem;
+		}
+		.energy .title{
+			width:12.8rem;
+			margin:0 auto;
+		}
+		.energy .power-box{
+			width:12rem;
+			height:22px;
+			margin: 0.5rem auto;
+			border:2px solid #00c6ff;
+			border-radius: 11px;
+			text-align: left;
+		}
+		.power-box .power{
+			width: 10%;
+			margin-top: 1px;
+			margin-left: 1px;
+			height: 16px;
+			border-radius: 8px;
+		}
+		.piont{
+			width: 12rem;
+			margin:0.2rem auto;
+		}
+		.piont>div{
+			width:0.6rem;
+			height:0.6rem;
+			float:left;
+			margin-left:0.35rem;
+			background: url(./img/images/piont_off.png);
+			background-size: cover;
+		}
+		.piont>div.active{
+			background-image: url(./img/images/piont_on.png);
+		}
+		.charge-btn{
+			width:6.4rem;
+			height:1.56rem;
+			margin: 1.28rem auto;
+			background: url(./img/images/change_btn.png);
+			background-size: contain;
+			text-align: center;
+			line-height: 1.56rem;
+			font-size: 0.56rem;
+			color:#ffe258;
+		}
+		.list-box{
+			width:12.08rem;
+			height:4.9rem;
+			margin:0 auto;
+			overflow: hidden;
+			background: url(./img/images/p16_list_05.jpg);
+			background-size: contain;
+		}
+		.list-box .list{
+			position: relative;
+			z-index: 100;
+			overflow: auto;
+			margin-top: 1.56rem;
+			width: 100%;
+			height: 3.34rem;
+		}
+		.list-box .list .detail{
+			color: #999;
+			font-size: 0.4rem;
+		}
+		.detail .name{
+			color:#999;
+			font-size: 0.4rem;
+		}
+		.detail p{
+			margin:0.5rem 0;
+		}
+		.detail .summary{
+			margin:0 0.6rem;
+		}
+		.btn-box{
+			width:100%;
+			color:#ffe258;
+			font-size: 0.48rem;
+			text-align: left;
+			margin-bottom: 2rem;
+		}
+		.btn-box span{
+			display: inline-block;
+			border-bottom:1px solid #ffe258;
+			padding:0.1rem 0;
+			margin-left:20%;
+			margin-top: 0.52rem;
+		}
+		
+		.friend-box{
+			width:100%;
+			height:100%;
+			overflow:auto;
+		}
+		.friend{
+			width:100%;
+			padding-bottom: 1rem;
+			overflow:auto;
+		}
+		.friend .title{
+			position: relative;
+			width:100%;
+			height: 9rem;
+		}
+		.friend .header{
+			position: absolute;
+			top:7.2rem;
+			right:0.48rem;
+			width:2.68rem;
+			height: 2.68rem;
+		}
+		.friend .name{
+			position: absolute;
+			bottom:-0.44rem;
+			right:3.8rem;
+			color:#fff;
+			font-size: 0.64rem;
+		}
+		.friend .erhu{
+			width:14.04rem;
+			margin:0 auto;
+			margin-top:2.2rem;
+		}
+		.friend .erhu img{
+			width:1.6rem;
+			height:1.6rem;
+		}
+		.friend .erhu-name{
+			font-size: 0.56rem;
+		}
+		.erhu-name p:nth-child(1){
+			color:#445b8a;
+			height: 0.8rem;
+			padding:0;
+			margin:0;
+			line-height: 0.8rem;
+		}
+		.erhu-name>p:nth-child(2){
+			color:#0c0c0c;
+			height: 0.8rem;
+			padding:0;
+			margin:0;
+			line-height: 0.8rem;
+		}
+		.comment{
+			position: relative;
+			float: right;
+			margin-top:0.48rem;
+			width:12.01rem;
+			background: #f4f3f5;
+		}
+		.comment:after{
+			content: "";
+			position:absolute;
+			top:-0.3rem;
+			left:0.36rem;
+			width:0;
+			height:0;
+			border:0.2rem solid #f4f3f5;
+			border-color:transparent transparent #f4f3f5 transparent;
+		}
+		.comment .likes{
+			padding:0.28rem;
+			width:100%;
+			color:#5b6a92;
+			font-size: 0.48rem;
+			line-height: 0.68rem;
+			border-bottom: 1px solid #e7e7e7;
+		}
+		.comment .likes span{
+			display: inline-block;
+			width:0.45rem;
+			height:0.45rem;
+			margin-right:0.36rem;
+			margin-left:0.1rem;
+			margin-top:0.1rem;
+			background: url(./img/images/p2_xin_03.jpg) no-repeat;
+			background-size: contain;
+		}
+		.comment .comments{
+			padding:0.28rem;
+			color:#0c0c0c;
+			font-size: 0.48rem;
+		}
+		.comments p{
+			margin-top: 0.3rem;
+			margin-bottom: 0.3rem;
+		}
+		.comment .comments span{
+			color:#5b6a92;
+		}
+		.chatPage{
+			width:100%;
+			height: 100%; 
+			overflow:hidden;
+			background: #ebebeb;
+			padding-top:0.68rem;
+		}
+		.chatPage .line{
+			margin-top:0.48rem;
+		}
+		.chatPage .line img{
+			width:1.6rem;
+			height: 1.6rem;
+			float: left;
+			margin-left:0.48rem;
+		}
+		.chatPage .line div{
+			float: left;
+			padding:0.28rem 0.28rem 0.28rem 0.5rem;
+			margin-left:0.14rem;
+			color:#181818;
+			font-size: 0.6rem;
+			line-height: 0.8rem;
+		}
+		.chatPage .line:nth-child(1) div{
+			width:10.04rem;
+			background: url(./img/images/p4_bubble2_03.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		.chatPage .line:nth-child(2) div{
+			width:3.4rem;
+			height: 3.14rem;
+			background: url(./img/images/bubble.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		.ranking-box{
+			overflow:auto;
+			padding-bottom: 4rem;
+			width:100%;
+			height:100%;
+			background: #000;
+		}
+		.ranking{
+			width:100%;
+			color:#ffe258;
+		}
+		.ranking .title{
+			width:100%;
+			border-bottom: 2px solid #ffe258;
+			padding:0.4rem;
+			font-size: 0.56rem;
+			text-align: center;
+		}
+		.ranking .number1{
+			width:100%;
+			height: 4.7rem;
+			background: url(./img/images/line_03.png) no-repeat;
+			background-position: left bottom;
+			background-size:contain;
+			overflow:hidden;
+		}
+		.ranking .number1 .rank{
+			float: left;
+			width:2.52rem;
+			height: 0.8rem;
+			margin-top:1.95rem;
+			border-radius: 0 0.4rem 0.4rem 0;
+			background: #e7c420;
+			color:#fff;
+			font-size: 0.6rem;
+			line-height: 0.8rem;
+			text-align: center;
+		}
+		.ranking .number1 .headPic{
+			float: left;
+			margin-top: 1.2rem;
+			margin-left:1.2rem;
+			height: 2.44rem;
+			width: 2.44rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .number1 .content{
+			float: left;
+			margin-top: 1.3rem;
+			margin-left:0.7rem;
+			color:#fff;
+			font-size: 0.48rem;
+		}
+		.content p{
+			margin:0;
+			height:1.1rem;
+			line-height: 1.1rem;
+		}
+		.content p:nth-child(2){
+			color:#e7c420;
+		}
+		.ranking .number1 .crown{
+			float: left;
+			width:1.74rem;
+			height: 0.96rem;
+			margin-top: 2rem;
+			margin-left:2.5rem;
+			background: url(./img/images/crown_03.png) no-repeat;
+			background-size: contain;
+		}
+		.ranking .number{
+			height: 2.4rem;
+			width:100%;
+			overflow: hidden;
+			background: url(./img/images/line_03.png) no-repeat;
+			background-position: left bottom;
+			background-size:contain;
+		}
+		.ranking .number>p{
+			float:left;
+			width:2.1rem;
+			font-size: 0.68rem;
+			margin-top:0.92rem;
+			margin-left: 0.68rem;
+		}
+		.ranking .number .headeP{
+			float: left;
+			margin-top: 0.2rem;
+			margin-left:1rem;
+			height: 2rem;
+			width: 2rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .number .content{
+			float: left;
+			margin-top: 0.4rem;
+			margin-left:0.64rem;
+			color:#999;
+			font-size: 0.48rem;
+		}
+		.number .content p{
+			margin:0;
+			height:0.8rem;
+			line-height: 0.8rem;
+		}
+		.ranking .myself{
+			position: absolute;
+			bottom:0;
+			left:0;
+			width:100%;
+			height:2.4rem;
+			background: #f5f4f6;
+			color:#555;
+		}
+		.ranking .myself>p{
+			float:left;
+			width:2.1rem;
+			font-size: 0.68rem;
+			margin-top:0.92rem;
+			margin-left: 0.68rem;
+		} 
+		.ranking .myself .headeP{
+			float: left;
+			margin-top: 0.2rem;
+			margin-left:1rem;
+			height: 2rem;
+			width: 2rem;
+			background-image: url(./img/images/p2_header_03.jpg);
+			background-size: cover;
+			border-radius: 50%;
+		}
+		.ranking .myself .content{
+			float: left;
+			margin-top: 0.4rem;
+			margin-left:0.64rem;
+			color:#999;
+			font-size: 0.64rem;
+		}
+		.myself .content p{
+			float: left;
+			margin:0;
+			margin-left:1rem;
+			height:2rem;
+			line-height: 1.8rem;
+		}
+		.puzzle-box{
+			overflow:hidden;
+			width:100%;
+			height: 100%;
+			background-image: url(./img/images/bg1.png);
+			background-size: cover;
+			background-position: center center;
+			-webkit-perspective: 800px;
+   			perspective: 800px;
+		}
+		.puzzle{
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			position: relative;
+			margin: 0 auto;
+			margin-top: 4rem;
+			width: 11.7rem;
+			height: 11.7rem;
+			transition: 0.3s linear all;
+			transform: scale(1,1) translate3d(0 ,0,0) rotateX(0deg);
+		}
+		.puzzle.active{
+			transform: scale(0.7,1) translate3d(3rem ,1rem,0) rotateX(60deg);
+			opacity: 0;
+		}
+		.puzzle .box1.active{
+			box-shadow: 0px 0px 10px #32fdff;
+		}
+		.puzzle>div{
+			overflow:hidden;
+			position: absolute;
+			top:0rem;
+			left:0;
+			width:100%;
+			height:100%;
+		}
+		.puzzle>div>div{
+			float: left;
+			width: 3.9rem;
+			height: 3.9rem;
+			border:1px solid rgba(0,0,0,0.2);
+			border-bottom:none;
+			background: url(./img/images/p5_puzzle.png);
+			background-size: 11.7rem 11.7rem;
+			transition: 0.3s linear all;
+		}
+		.puzzle>div>div:nth-child(1){
+			background-position: 0 0;
+			transform: translate(7.8rem, 0rem);
+		}
+		.puzzle>div>div:nth-child(2){
+			background-position:-3.9rem 0;
+			transform: translate(0,7.8rem);
+		}
+		.puzzle>div>div:nth-child(3){
+			background-position:-7.8rem 0;
+			transform: translate(-7.8rem ,0);
+		}
+		.puzzle>div>div:nth-child(4){
+			background-position: 0 -3.9rem;
+		}
+		.puzzle>div>div:nth-child(5){
+			background-position: -3.9rem -3.9rem;
+		}
+		.puzzle>div>div:nth-child(6){
+			background-position:-7.8rem -3.9rem;
+		}
+		.puzzle>div>div:nth-child(7){
+			background-position: 0 -7.8rem;
+			transform: translate(7.8rem ,0);
+		}
+		.puzzle>div>div:nth-child(8){
+			background-position:-3.9rem -7.8rem;
+			transform: translate(0,-7.8rem);
+		}
+		.puzzle>div>div:nth-child(9){
+			background-position: -7.8rem -7.8rem;
+			transform: translate(-7.8rem,0);
+		}
+		.tip{
+			overflow:hidden;
+			position: relative;
+			z-index: 14;
+			margin:0 auto;
+			margin-top:0.4rem;
+			width: 12.8rem;
+			height: 6.8rem;
+			line-height: 6.8rem;
+			text-align: center;
+			font-size: 0.48rem;
+			color:#53e3fd;
+			background: url(./img/images/tip.png) no-repeat;
+			background-size: contain;
+		}
+		.tip p{
+			width:3.5rem;
+			height: 1rem;
+			line-height: 1rem;
+			margin: 0 auto;
+			text-align: left;
+		}
+		.tip p.wrong{
+			background: url(./img/images/wrong.png) no-repeat;
+			background-size: contain;
+			background-position: right center;
+		}
+		.tip p.right{
+			background: url(./img/images/right.png) no-repeat;
+			background-size: contain;
+			background-position: right center;
+		}
+		.bg-puzzle{
+			display: none;
+			width:100%;
+			height: 100%;
+			background: url(./img/images/p2_chat.png) no-repeat;
+			background-size: contain;
+		}
+		.book-puzzle{
+			display: none;
+			width:100%;
+			height: 100%;
+			background: url(./img/images/book.png) no-repeat;
+			background-size: contain;
+		}
+		.tip-anim{
+			display: none;
+			position: absolute; 
+			top: 5rem;
+			right: 1rem;
+			z-index: 3;
+			width:1.76rem; 
+			height:1.76rem; 
+			background:url(./img/images/ltr.png) no-repeat;
+			background-size: contain;
+			transform-origin: bottom center;
+		}
+		.tip-anim.f1{
+			animation:flash3 1.5s linear infinite;
+		}
+		.tip-anim.f2{
+			animation:flash4 1.5s linear infinite;
+		}
+		.tip-msg{
+			width:10.4rem;
+			height:3.2rem;
+			margin:7rem auto;
+			background: url(./img/images/blur.png) no-repeat;
+			background-size: contain;
+			color:#ffe258;
+			font-size:0.64rem ;
+			line-height: 3rem;
+			text-align: center;
+		}
+		.puzzle-box .power-box{
+			display: none;
+			position: absolute;
+			top:3.5rem;
+			left:50%;
+			margin-left:-6rem;
+			width:12rem;
+			height:22px;
+			border:2px solid red;
+			border-radius: 11px;
+			text-align: left;
+		}
+		.power-box .power2{
+			width:0%;
+			transition: 3s linear width;
+		}
+		.carers{
+			position: absolute;
+			top: 50%;
+			left:0;
+			height:10.24rem;
+			width:100%;
+			margin-top:-5.12rem;
+			background: url(./img/images/carers.png) no-repeat;
+			background-size: contain;
+		}
+		.bottom-box{
+			position: absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height: 100%;
+			text-align: center;
+			background: url(./img/images/bg2.jpg) no-repeat;
+			background-size: cover;
+		}
+		.bottom-word p{
+			margin:0.1rem;
+			display: none;
+		}
+		.btns{
+			display: none;
+			position: absolute;
+			bottom:0; 
+			left:0;
+			width:100%;
+			background:#ebebeb; 
+			text-align: center;
+			line-height: 2rem;
+		}
+		.btns p{
+			font-size: 0.72rem;
+			margin: 0;
+			height: 2rem;
+			color:#222222;
+			border-bottom: 1px solid #d2d2d2;
+		}
+		.btns p a{
+			color:#222222;
+			text-decoration: none;
+		}
+		.weixin{
+			display: none;
+			position: absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height: 100%;
+			background: rgba(0,0,0,0.8);
+		}
+		.weixin div{
+			position: relative;
+			margin:7rem auto;
+			width: 7.64rem;
+			height:7.64rem;
+		}
+		.weixin .close{
+			position: absolute;
+			right: -0.44rem;
+			top: -0.44rem;
+			width: 0.88rem;
+			height: 0.88rem;
+		}
+		.badge{
+			width:100%;
+			height: 100%;
+			text-align: center;
+			background: url(./img/images/bg2.jpg) no-repeat;
+			background-size: cover;
+		}
+		.rules{
+			margin: 1rem auto;
+			width: 12.8rem;
+			color:#fff;
+			font-size: 0.44rem;
+		}
+		.rules p{
+			width:100%;
+			text-align: left;
+		}
+		.rules .title{
+			height: 1rem;
+			text-align: center;
+			margin:0.8rem 0;
+			background:url(./img/images/line2.png) no-repeat;
+			background-size: contain;
+			background-position: bottom;
+		}
+		.mt2{
+			margin-top: 2rem;
+		}
+		.tipToShare{
+			display: none;
+			position: absolute;
+			top:0;
+			left:0;
+			z-index: 102;
+			height: 100%;
+			width:100%;
+			background: url(./img/images/share.png) no-repeat;
+			background-size: cover;
+		}
+	</style>
+	<title>纪念变形金刚30周年</title>
+</head>
+<body>
+	<img src="./img/images/g1.gif" style="display: none;" alt="">
+	<img src="./img/images/g2.gif" style="display: none;" alt="">
+	<img src="./img/images/g3.gif" style="display: none;" alt="">
+	<img src="./img/images/g1_1.png" style="display: none;" alt="">
+	<audio src="./img/images/msg.mp3" id="a1" style="visibility: hidden;"></audio>
+	<audio src="./img/images/puzzle.mp3" id="a2" style="display: none;"></audio>
+	<audio src="./img/images/action.mp3" id="a3" style="display: none;" loop='true'></audio>
+	<audio src="./img/images/tip_msg.mp3" id="a4" style="display: none;"></audio>
+	<audio src="./img/images/bianxing.mp3" id="a5" style="display: none;"></audio>
+	<div class="loadPage">
+		<img src="./img/images/load.gif" >
+		<p style="margin:0;color:#ffe258;font-size: 0.5rem;font-weight:bold;">Loading<span id="loadPoint">...</span></p>
+		<p style="color:#53e3fd; font-size:0.7rem;width:13rem;margin:2rem auto;text-align: left;transform-origin: top left;transform: scale(1,0.7);" id="loadWordBox"></p>
+	</div>
+	<div class="friend-box" style="display: none;">
+		<img class="chat-tip" src="./img/images/p3_box_03.png" style="position:absolute; top:0; left:0.48rem; display: none; width:14.04rem;z-index: 3;" alt="">
+		<div class="friend">
+			<div class="title">
+				<img  src="./img/images/p2_title_02.jpg" style="width:100%;">
+				<img class="header" src="./img/images/p2_header_03.jpg" >
+				<p class="name">起初的亚瑟</p>
+			</div>
+			<div class="erhu clearfix">
+				<img src="./img/images/p2_header2_07.jpg" style="float: left;">
+				<div class="erhu-name" style="float:left;margin-left: 0.5rem;">
+					<p>二虎</p>
+					<p>老柜子里翻出的宝贝，有三十年了吧！</p>
+				</div>
+				<img src="./img/images/p2_body_03.jpg" style="width:100%;height: 7.3rem;margin-top:0.4rem;">
+				<div class="comment">
+					<div class="likes">
+						<span></span>赵默、二虎、骑猪的亚瑟、熊宝、卫斯理、80大炮、闪电、小马哥、吕某某
+					</div>
+					<div class="comments">
+						<p><span>赵默</span>:666</p>
+						<p><span>二虎</span>:算是最早的G1变形金刚系列了吧，我最喜欢的爵士！！！</p>
+						<p><span>骑猪的亚瑟</span>:可以啊，保存的还不错嘛</p>
+						<p><span>闪电</span>:我是大黄蜂，人类的朋友。擎天柱能量耗尽，需要人类骑士的援助，而你是被选中的那个人！</p>
+						<p><span>80大炮</span>回复<span>闪电</span>:哈哈哈，是你入戏太深！</p>
+						<p><span>闪电</span>回复<span>80大炮</span>:惊不惊喜，意不意外？</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="chatPage"  style="display: none;">
+		<div class="line clearfix">
+			<img src="./img/images/p4_header_03.jpg" alt="">
+			<div>
+				擎天柱需要你！你作为人类最后的骑士，它把这些信息碎片留给了你，相信你一定懂得如何去使用它。
+			</div>
+		</div>
+		<div class="line clearfix" style="display: none;">
+			<img src="./img/images/p4_header_03.jpg" alt="">
+			<div>
+				<img style="width:2rem; height:2rem;margin-top:0.3rem;margin-left:0.3rem;" src="./img/images/p2_chat2.png" alt="">
+			</div>
+			<p style="color:#97aad0; font-size: 0.48rem; float: left; padding-left:2.5rem; width:15rem; margin:0;">点击此处获得信息碎片</p>
+		</div>
+		<img src="./img/images/p4_bottom_02.jpg" style="position: absolute; bottom: 0; left:0; width:100%;">
+	</div>
+	<div class="puzzle-box" style="display: none;">
+		<p class="animated" style=" animation-duration: 1.5s;animation-fill-mode: both;line-height: 1rem; display: none;font-size:0.64rem; color:#ffe258; position: absolute; top:2.6rem; width:13rem; left:1rem">1000万年前塞伯坦星球爆发内战，汽车人与霸天虎因常年战争而耗尽星球资源</p>
+		<p class="power-box animated" style="animation-duration: 1.5s;animation-fill-mode: both;">
+			<img class="power power2" src="img/images/power.png" alt="">
+		</p>
+		<div class="puzzle">
+			<div class="box1 animated ">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="bg-puzzle animated " style="animation-delay: 0.5s;">
+				
+			</div>
+			<div class="book-puzzle animated bounceIn" >
+				
+			</div>
+			
+		</div>
+		<div class="gif1" style="display: none; position: absolute; top:4.6rem; left:0; width:15rem; animation-duration: 1.5s; animation-fill-mode: both;">
+			<img style="width:100%;" >
+			<div class="tip-anim f1">
+			</div>
+		</div>
+		<div class="blur animated" style="display:none; animation-duration: 1s; width:100%; height:100%; position: absolute; top:0; left:0; z-index: 3; background: rgba(0,0,0,0.9)">
+			<div class="tip-msg animated" style="animation-delay: 1s; animation-duration: 2s;">
+ 				牢记它：tonday
+			</div>
+		</div>
+		<div class="tip" style="animation-duration: 1.5s; animation-fill-mode: both;">
+			碎片看似杂乱,一点既明朗
+		</div>
+		<div class="carers animated" style="animation-fill-mode: both;animation-duration: 7s;animation-timing-function: linear; display: none;">
+			
+		</div>
+	</div>
+	<div class="bottom-box animated zoomIn3"  style="display: none;">
+		<img src="./img/images/book2.png" style="width:100%;" alt="">
+		<img src="./img/images/logo.png" style="width:7.36rem; margin-top:1rem;" >
+		<div class="bottom-word" style="position: absolute; top:3.6rem; right:1rem; text-align: right; color:#ffe258; font-size: 0.6rem;">
+			<p class="animated slideInLeft">谨以此3D变形金刚立体书30周年中文纪念典藏版</p>
+			<p class="animated slideInLeft" style="animation-delay: 0.5s;">致敬伟大的变形金刚系列</p>
+		</div>
+		<div class="weixin">
+			<div>
+				<img src="./img/images/erweima.png"  style="width: 100%;" alt="">
+				<img class="close" src="./img/images/close.png" alt="">
+			</div>
+		</div>
+		<div class="btns animated slideInBottom">
+			<p data-name="badge">授勋骑士徽章</p>
+			<p><a href="https://shop13315290.wxrrd.com/goods/109794925">收藏3D变形金刚</a></p>
+			<p data-name="count">关注公众号</p>
+		</div>
+	</div>
+	<div class="badge" style="display: none;">
+		<img src="./img/images/tip_share2.png" style="position: absolute;top: 0.2rem;right: 0.2rem;width: 2.48rem;" alt="">
+		<img src="./img/images/title.png" style="width:12rem; margin:0 auto; margin-top: 1.5rem;" alt="">
+		<img src="./img/images/badge.png" style="width:9.2rem;" alt="">
+		<img class="goto" src="./img/images/btn3.png" style="width:6.4rem;" alt="">
+		<div class="rules">
+			<p class="title">活动规则</p>
+			<p>1. 召集你的小伙伴，组成骑士团为擎天柱充能；</p>
+			<p>2. 满12人参与充能可收到珍贵十二地球人骑士团徽章；</p>
+			<p>3. 另活动期间内参与充能人数前三名的骑士团团长可得到3D变形金刚立体书！</p>
+		</div>
+	</div>
+	<div class="energy-box"  style="display: none;">
+		<div class="energy">
+			<img class="cover" src="./img/images/p16_cover_02.jpg" alt="">
+			<p class="name">骑着亚瑟的猪</p>
+			<img class="title" src="./img/images/p16_title2.png" alt="">
+			<div class="power-box">
+				<img class="power" src="img/images/power.png" alt="">
+			</div>
+			<div class="piont clearfix">
+				<div class="active"></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div class="list-box mt2">
+				<div class="list">
+					<div class="detail">
+						<!-- <p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p>
+						<p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p>
+						<p><span class="name">骑着亚瑟的猪</span><span class="summary">为擎天柱注入了能量</span><span>2017/10/25 20:35</span></p> -->
+					</div>
+				</div>
+			</div>
+			<div class="btn-box">
+				<span>查看排行榜</span>
+				<span>召唤好友充能</span>
+			</div>
+		</div>
+	</div>
+	<div class="tipToShare">
+	</div>
+	<div class="ranking-box" style="display: none;">
+		<div class="ranking">
+		</div>
+	</div>
+	<script type="text/javascript" src="./active.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="animate.css">
+</body>
+</html>
